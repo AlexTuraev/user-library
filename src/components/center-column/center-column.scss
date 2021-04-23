@@ -1,0 +1,18 @@
+@import '../../styles-ui/main.scss';
+
+.selected-book{
+    min-width: $min-width-center;
+    border: 1px solid grey;
+    overflow: hidden;
+    flex-grow: 2;
+
+    &__subtitle{
+        font-size: 14px;
+        color: $subtitle-color;
+    }
+
+    &__add-book{
+        font-size: 20px;
+        font-weight: 600;
+    }
+}

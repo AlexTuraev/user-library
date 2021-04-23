@@ -1,0 +1,50 @@
+@import '../../styles-ui/main.scss';
+
+.summary{
+    background-color: $backgr-color-info;
+    height: 6vh;
+    min-height: 60px;
+
+    &__info{
+        font-size: 18px;
+    }
+    
+    &__group-link{
+        display: flex;
+    }
+    
+    &__page-link{
+        margin-right: 10px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+}
+// ----------------------------------------------------------------
+@media (max-width: $breakPoint1+px) {
+    .summary{
+        &__info{
+            font-size: 16px;
+        }
+    }
+}
+// ----------------------------------------------------------------
+@media (max-width: $breakPoint2+px) {
+    .summary{
+        &__page-link{
+            margin-right: 10px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+        &__info{
+            font-size: 14px;
+        }
+    }
+}
+// ----------------------------------------------------------------
+@media (max-width: $breakPoint3+px) {
+    .summary{
+        &__info{
+            font-size: 12px;
+        }
+    }
+}

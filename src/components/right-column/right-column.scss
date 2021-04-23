@@ -1,0 +1,10 @@
+@import '../../styles-ui/main.scss';
+
+.to-read-list{
+    height: 100vh;
+    width: 27%;
+    min-width: $min-width-right;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}

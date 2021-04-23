@@ -1,0 +1,13 @@
+.ui-link{
+    color: $color-link;
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: underline;
+    }
+
+    &--disabled{
+        color: grey;
+        cursor: text;
+    }
+}

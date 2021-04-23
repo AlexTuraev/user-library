@@ -1,0 +1,98 @@
+@import '../../styles-ui/main.scss';
+
+.user-list{
+    height: 100%;
+    overflow-y: auto;
+
+    &__li{
+        list-style-type: none;
+    }
+
+    &__book{
+        min-height: 50px;
+        border-bottom: 2px solid grey;
+        position: relative;
+    }
+
+    &__book.marked-yes{
+        background-color: aqua;
+    }    
+
+    &__subtitle{
+        color: $subtitle-color;
+    }
+
+    &__book-data{
+        
+    }
+
+    &__title{
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__author{
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    &__group-actions{
+        width: 100%;
+        min-width: 270px;
+        margin-top: 10px;
+        display: flex;
+    }
+
+    &__link{
+        font-size: 18px;
+        font-weight: 600;
+    }
+    
+    &__link:not(:last-child){
+        margin-right: 20px;
+    }
+
+    &__book.marked-yes .not-read{
+        display: none;
+    }
+
+    .read{
+        display: none;
+    }
+
+    &__book.marked-yes .read{
+        color: red;
+        display: inline-block;
+    }
+}
+
+
+@media (max-width: $breakPoint1+px) {
+    .user-list{
+        &__link{
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        &__title,
+        &__author{
+            font-size: 18px;
+            font-weight: 600;
+        }
+    }
+}
+
+@media (max-width: $breakPoint3+px) {
+    .user-list{
+        &__link{
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        &__title,
+        &__author{
+            font-size: 16px;
+            font-weight: 600;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+@import '../../styles-ui/main.scss';
+
+.to-read-header{
+    background-color: $backgr-color-info;
+    height: 9vh;
+    min-height: $min-height-top-info;
+    display: flex;
+    align-items: center;
+    padding: 25px;
+
+    &__block{
+
+    }
+
+    &__info{
+        font-size: 18px;
+        margin-right: 10px;
+    }
+}

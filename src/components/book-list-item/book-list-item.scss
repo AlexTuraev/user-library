@@ -1,0 +1,10 @@
+.book-item{
+    width: 100%;
+    min-height: 50px;
+    border-bottom: 2px solid grey;
+    cursor: pointer;
+
+    &--selected{
+        background-color: gainsboro;
+    }
+}
