@@ -1,3 +1,19 @@
+/*::-webkit-scrollbar {
+    width: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #D3D3D3;
+    border-radius: 4px;
+}*/
+
+
+@font-face{
+    font-family: 'Roboto', sans-serif;
+    src: url("../fonts/Roboto/Roboto-Medium.ttf");
+    src: url("../fonts/Roboto/Roboto-Thin.ttf");
+}
+
 @import './variables';
 
 @import './item-style/ui-link';

@@ -16,13 +16,11 @@ const SearchPanel = ({fetchBooks}) => {
 
     function onSearchSetValue(value){
         if (value==='') return;
-
-        console.log(value);
-        //fetchBooks( bookService.getBooks, value.toUpperCase());
+        
         fetchBooks( bookService.getBooks, value);
     }
     
-    const handlerOnKeyDown = (e) =>{
+    const handlerOnKeyUp = (e) =>{
         if (e.code === 'Enter') {
             onSearchSetValue(searchValue);
         }
@@ -35,7 +33,7 @@ const SearchPanel = ({fetchBooks}) => {
     return(
         <section className='search-panel'>
             <div className='search-panel__block'>
-                <input className='search-panel__input-search' onChange={handlerOnChange} onKeyDown={handlerOnKeyDown} 
+                <input className='search-panel__input-search' onChange={handlerOnChange} onKeyUp={handlerOnKeyUp}
                     placeholder='Type search...'/>
                 <button className='search-panel__go-btn' onClick={handlerOnBtnClick}>Go</button>
             </div>

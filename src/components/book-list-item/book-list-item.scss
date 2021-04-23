@@ -1,10 +1,21 @@
+@import '../../styles-ui/main.scss';
+
 .book-item{
     width: 100%;
     min-height: 50px;
     border-bottom: 2px solid grey;
     cursor: pointer;
+    padding: $padding-indent;
+
+    font: 600 16px 'Roboto', sans-serif;
 
     &--selected{
         background-color: gainsboro;
+    }
+}
+
+@media (max-width: $breakPoint0+px) {
+    .book-item{
+        padding: $padding-indent2;
     }
 }
