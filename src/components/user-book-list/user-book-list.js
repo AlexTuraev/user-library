@@ -33,6 +33,9 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
 
     }
 
+    /*
+        Вспомогательный компонент вывода группы кнопок
+    */
     const BtnGroup = ({keyId}) =>{
         return(
             <div className='user-list__group-actions'>
