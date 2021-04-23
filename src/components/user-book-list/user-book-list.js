@@ -33,6 +33,27 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
 
     }
 
+    const BtnGroup = ({keyId}) =>{
+        return(
+            <div className='user-list__group-actions'>
+                <div className='ui-link user-list__link not-read'
+                    data-key={keyId} data-action='MARK'>
+                    Mark as read
+                </div>
+
+                <div className='ui-link user-list__link read'
+                    data-key={keyId} data-action='UNMARK'>
+                    Mark as not read
+                </div>
+
+                <div className='ui-link user-list__link not-read'
+                    data-key={keyId} data-action='REMOVE'>
+                    Remove from list
+                </div>
+            </div>
+        );
+    }
+
     return(
         <div className='user-list'>
             <ul onClick={(e) => handlerClickBtnGroup(e)}>
@@ -48,30 +69,10 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
                                 <div className={classNames}>
                                     <article className='user-list__book-data'>
                                         {title && <p className='user-list__title'>{title} ({language.join(', ')})</p>}
-
                                         {subtitle && <p className='user-list__subtitle'>{subtitle}</p>}
                                         {author_name && <p className='user-list__author'>{author_name}</p>}
                                         
-                                        <div className='user-list__group-actions'>
-
-
-                                            <div className='ui-link user-list__link not-read'
-                                                data-key={book.key} data-action='MARK'>
-                                                Mark as read
-                                            </div>
-
-                                            <div className='ui-link user-list__link read'
-                                                data-key={book.key} data-action='UNMARK'>
-                                                Mark as not read
-                                            </div>
-
-                                            <div className='ui-link user-list__link not-read'
-                                                data-key={book.key} data-action='REMOVE'>
-                                                Remove from list
-                                            </div>
-
-
-                                        </div>
+                                        <BtnGroup keyId={book.key} />
                                     </article>
 
                                     {showConfirmWindow && <ConfirmWindow />}
