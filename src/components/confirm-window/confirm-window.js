@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 
 import './confirm-window.scss';
 
-const ConfirmWindow = ({getAnswer = arg=>arg}) =>{
+const ConfirmWindow = ({keyId, getAnswer = ()=>{}}) =>{
     const [classNames, setClassNames] = useState('confirm-window');
     
     const handlerClick = (answer) =>{
-        getAnswer(answer);
+        getAnswer({keyId, answer});
         setClassNames(classNames + ' confirm-window--closed');
     }
 

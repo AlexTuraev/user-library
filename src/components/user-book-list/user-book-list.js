@@ -1,18 +1,13 @@
 import React, {useState} from 'react';
 
 import './user-book-list.scss';
-import ConfirmWindow from '../confirm-window'; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey}) =>{
-    const [showConfirmWindow, setShowConfirmWindow] = useState(false); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  
     const handlerToggleMark = (key, isRead) =>{
-        console.log(`Mark book with key = ${key}`);
         markReadBook(key, userBooks, isRead);
     }
-    
+
     const handlerRemove = (key) => {
-        //setShowConfirmWindow(true);
         removeBook(key, userBooks);
     }
 
@@ -67,7 +62,7 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
                         if(book[symbolMarkedKey]) classNames = classNames + ' marked-yes';
 
                         const {title, language=[], subtitle, author_name} = book;
-                        return(
+                        return(    
                             <li key={`${book.key}`} className='user-list__li'>
                                 <div className={classNames}>
                                     <article className='user-list__book-data'>
@@ -77,8 +72,6 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
                                         
                                         <BtnGroup keyId={book.key} />
                                     </article>
-
-                                    {showConfirmWindow && <ConfirmWindow />}
                                 </div>
                             </li>
                         );
