@@ -69,9 +69,8 @@ const UserBookList = ({userBooks=[], removeBook, markReadBook, symbolMarkedKey})
                                         {title && <p className='user-list__title'>{title} ({language.join(', ')})</p>}
                                         {subtitle && <p className='user-list__subtitle'>{subtitle}</p>}
                                         {author_name && <p className='user-list__author'>{author_name}</p>}
-                                        
-                                        <BtnGroup keyId={book.key} />
                                     </article>
+                                    <BtnGroup keyId={book.key} />
                                 </div>
                             </li>
                         );

@@ -3,6 +3,7 @@
 .user-list{
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
 
     &__li{
         list-style-type: none;
@@ -16,26 +17,22 @@
     }
 
     &__book.marked-yes{
-        background-color: aqua;
+        color: #228B22;
+        background-color: #FFF8DC;
     }    
 
     &__subtitle{
+        font-size: $subtitle-font-size;
         color: $subtitle-color;
     }
 
     &__book-data{
-        /*font: 600 16px 'Roboto', sans-serif;*/
         font-family: 'Roboto', sans-serif;
     }
 
-    &__title{
-        font-size: 20px;
-        font-weight: 600;
-    }
-
+    &__title,
     &__author{
-        font-size: 20px;
-        font-weight: 600;
+        font-size: $text-font-size;
     }
 
     &__group-actions{
@@ -46,7 +43,8 @@
     }
 
     &__link{
-        font-size: 16px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
         font-weight: 600;
     }
     
@@ -63,44 +61,45 @@
     }
 
     &__book.marked-yes .read{
-        color: red;
+        color: #D2691E;
         display: inline-block;
     }
 }
-
+/* ------------------------------------------------------------------------- */
 @media (max-width: $breakPoint0+px){
     .user-list{
         &__book{
             padding: $padding-indent2;
         }
+
+        &__link{
+            font-size: 16px;
+        }
     }
 }
+
+/* ------------------------------------------------------------------------- */
 @media (max-width: $breakPoint1+px) {
     .user-list{
         &__link{
             font-size: 14px;
-            font-weight: 600;
         }
         
         &__title,
         &__author{
-            font-size: 18px;
-            font-weight: 600;
+            font-size: $text-font-size1;
         }
     }
 }
-
-@media (max-width: $breakPoint3+px) {
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint2+px) {
     .user-list{
         &__link{
             font-size: 12px;
-            font-weight: 600;
         }
-
-        &__title,
-        &__author{
-            font-size: 16px;
-            font-weight: 600;
+        &__link:not(:last-child){
+            margin-right: 5px;
         }
     }
 }
+/* ------------------------------------------------------------------------- */

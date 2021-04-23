@@ -13,16 +13,15 @@ const CenterColumn = ({book={}, userBooks={}, addToReadBook}) =>{
 
     return (
         <div className='selected-book'>
-            <h1>Center COLUMN</h1>
-            {(key === undefined) ? null :
+            {(key === undefined) ? <p>Selected book's information</p> :
             (
                 <>
-                    {title && <h2>{title}</h2>}
-                    {subtitle && <p className='selected-book__subtitle'>{subtitle}</p>}
+                    {title && <p>{title}</p>}
+                    {subtitle && <p className='selected-book__subtitle'>{subtitle}</p>}<br />
                     {Array.isArray(language) && <p>Language available: {language.join(', ')}</p>}
                     <p>Full text available: {has_fulltext ? 'true' : 'false'}</p>
                     {first_publish_year && <p>First publish year: {first_publish_year}</p>}
-                    {Array.isArray(publish_year) && <p>Years published: {publish_year.join(', ')}</p>}
+                    {Array.isArray(publish_year) && <p>Years published: {publish_year.join(', ')}</p>}<br/>
                     
                     <div className='ui-link selected-book__add-book'
                         onClick={handlerAddBook}>

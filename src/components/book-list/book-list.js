@@ -10,7 +10,6 @@ import {bookSelected} from '../../store/actions';
 const BookList = ({items=[], loading, error, bookSelected, selectedKey}) =>{
     const handlerClick = (event) =>{
         const key = event.target.dataset.keyId; /* делегирование, берем параметр с dataset от div в BookListItem */
-        //console.log(key);
         bookSelected(key, items);
     }
 
@@ -23,7 +22,7 @@ const BookList = ({items=[], loading, error, bookSelected, selectedKey}) =>{
         return (
             //<li key={key} onClick={()=>handlerClick(key)}>
             <li key={key}>
-                <BookListItem keyId={key} title={item.title} language={item.language} selected={selected}/>
+                <BookListItem keyId={key} title={item.title} language={item.language} subtitle={item.subtitle} selected={selected}/>
             </li>
         );
     });

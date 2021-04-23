@@ -2,8 +2,9 @@
 
 .summary{
     background-color: $backgr-color-info;
-    height: 6vh;
+    height: 8vh;
     min-height: 60px;
+    padding: 10px $padding-indent 10px $padding-indent;
 
     &__info{
         font-size: 18px;
@@ -19,7 +20,13 @@
         font-weight: 500;
     }
 }
-// ----------------------------------------------------------------
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint0+px) {
+    .summary{
+        padding: 5px 8px 5px $padding-indent2;
+    }
+}
+/* ------------------------------------------------------------------------- */
 @media (max-width: $breakPoint1+px) {
     .summary{
         &__info{

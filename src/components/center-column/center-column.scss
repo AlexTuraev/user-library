@@ -1,18 +1,36 @@
 @import '../../styles-ui/main.scss';
 
 .selected-book{
+    width: 44%;
     min-width: $min-width-center;
+    height: 100vh;
     border: 1px solid grey;
-    overflow: hidden;
+    padding: 4vh 3vw 4vh 3vw;
+
+    overflow-y: auto;
+    overflow-x: hidden;
     flex-grow: 2;
+    font-family: 'Roboto', sans-serif;
+    font-size: $text-font-size;
 
     &__subtitle{
-        font-size: 14px;
+        font-size: $subtitle-font-size;
         color: $subtitle-color;
     }
 
     &__add-book{
-        font-size: 20px;
+        font-size: $text-font-size;
         font-weight: 600;
     }
 }
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint1+px){
+    .selected-book{
+        font-size: $text-font-size1;
+
+        &__add-book{
+            font-size: $text-font-size1;
+        }
+    }
+}
+/* ------------------------------------------------------------------------- */

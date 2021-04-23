@@ -7,15 +7,29 @@
     cursor: pointer;
     padding: $padding-indent;
 
-    font: 600 16px 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    font-size: $text-font-size;
+
+    &__subtitle{
+        font-size: $subtitle-font-size;
+        color: $subtitle-color;
+    }
 
     &--selected{
         background-color: gainsboro;
+        font-weight: 600;
     }
 }
-
+/* ------------------------------------------------------------------------- */
 @media (max-width: $breakPoint0+px) {
     .book-item{
         padding: $padding-indent2;
     }
 }
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint1+px) {
+    .book-item{
+        font-size: $text-font-size1;
+    }
+}
+/* ------------------------------------------------------------------------- */
