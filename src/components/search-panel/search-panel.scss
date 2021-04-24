@@ -7,32 +7,35 @@
     min-height: $min-height-top-info;
     background-color: $backgr-color-info;
     border-bottom: 1px solid grey;
+    
+    padding: 0 $padding-indent;
 
     display: flex;
     align-items: center;
-    justify-content: center;
 
     &__block{
+        width: 100%;
         display: flex;
         justify-content: space-between;
     }
 
     &__input-search{
-        width: 223px;
+        width: 70%;
         height: 39px;
         min-height: 39px;
-        font-size: 20px;
+        font-size: $text-font-size;
 
         padding: 5px;
-        margin-right: 10px;
+        margin-right: 12px;
         border: none;
     }
 
     &__go-btn{
         height: 39px;
         min-height: 39px;
-        width: 96px;
-        font-size: 20px;
+        width: 26%;
+        min-width: 28px;
+        font-size: $text-font-size;
         background-color: $bgcolor-btn-go;
         color: $white;
         border: none;
@@ -57,26 +60,27 @@
         box-shadow: 0 1px 2px $primary-color, 0 -1px 2px $primary-color;
     }
 }
-// -------------------------------------------------------
+/* ------------------------------------------------------------------------- */
 @media (max-width: $breakPoint0+px) {
     .search-panel{
-        &__input-search{
-            width: 170px;
-        }
+        padding: 0 $padding-indent2;
+    }
+}
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint1+px) {
+    .search-panel{
+        &__input-search,
         &__go-btn{
-            width: 45px;
+            font-size: $text-font-size1;
         }
     }
 }
-
-@media (max-width: $breakPoint2+px) {
+/* ------------------------------------------------------------------------- */
+@media (max-width: $breakPoint3+px){
     .search-panel{
         &__input-search{
-            width: 135px;
-            font-size: 18px;
-        }
-        &__go-btn{
-            width: 38px;
+            padding: 3px;
         }
     }
 }
+/* ------------------------------------------------------------------------- */
