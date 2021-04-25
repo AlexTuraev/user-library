@@ -8,20 +8,19 @@ import {BookServiceContext} from '../book-service-context/book-service-context';
 import './search-panel.scss';
 
 const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
+    const [valueInput, setValueInput] = useState('');
     const [searchValue, setSearchValue] = useState('');
     const [isHotReload, setIsHotReload] = useState(null); /* принудительная загрузка по Enter и кнопке Go */
     const bookService = useContext(BookServiceContext);
     
     useEffect(()=>{
-        //if(searchValue === '') return;
         let isStopLoading = false;
 
         const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
         const searchString = searchValue;
-
         const promise1 = fetchBooks(bookService.getBooks, searchString);
 
-            /* withDebounce выдаст null при неотправленном запросе */
+            /* ЭТО ОТ СТАРОГО КОДА withDebounce выдаст null при неотправленном запросе */
         if(promise1 !== null){
             promise1.then(data => {
                 if(!isStopLoading) {
@@ -29,12 +28,14 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
                 } 
             })
             .catch(err => booksError(err));
-            
-            //return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
         }
 
         return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
     }, [searchValue, isHotReload]);
+
+    const handlerOnChange =(e) =>{
+        setValueInput(e.target.value);
+    }
     
     let intervalId; /* идентификатор старта onSearchSetValue с последнего нажатия клавиши */
 
@@ -52,16 +53,23 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
         }
     }
 
+    let intervalIdGo;
     const handlerOnBtnClick = () =>{
-        setIsHotReload((new Date()).getTime());
+        clearInterval(intervalIdGo);
+        intervalIdGo = setTimeout(()=>{
+            setSearchValue(valueInput);
+            setIsHotReload((new Date()).getTime());
+        }, 200);
     }
 
     return(
         <section className='search-panel'>
             <div className='search-panel__block'>
-                <input className='search-panel__input-search' onKeyUp={handlerOnKeyUp}
+                <input className='search-panel__input-search' onKeyUp={handlerOnKeyUp} onChange={handlerOnChange}
                     placeholder='Type search...' title='Type search... Press Enter or push Button Go to forced loading'/>
-                <button className='search-panel__go-btn' onClick={handlerOnBtnClick}>Go</button>
+                <button className='search-panel__go-btn' onClick={handlerOnBtnClick} title='Push to start reloading'>
+                    Go
+                </button>
             </div>
         </section>
     );
