@@ -9,7 +9,7 @@ import {BookServiceProvider} from './components/book-service-context';
 import App from './components/app';
 import store from './store/store';
 
-const bookService = new BookService();
+const bookService = new BookService('https://openlibrary.org/search.json');
 
 ReactDOM.render(
   <React.StrictMode>

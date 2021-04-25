@@ -13,7 +13,7 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
     const bookService = useContext(BookServiceContext);
     
     useEffect(()=>{
-        if(searchValue === '') return;
+        //if(searchValue === '') return;
         let isStopLoading = false;
 
         const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
@@ -21,7 +21,7 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
 
         const promise1 = fetchBooks(bookService.getBooks, searchString);
 
-            /* withDebounce мог выдаст null при неотправленном запросе */
+            /* withDebounce выдаст null при неотправленном запросе */
         if(promise1 !== null){
             promise1.then(data => {
                 if(!isStopLoading) {
@@ -29,8 +29,10 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
                 } 
             })
             .catch(err => booksError(err));
+            
+            //return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
         }
-        
+
         return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
     }, [searchValue, isHotReload]);
     
@@ -38,6 +40,7 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
 
     const handlerOnKeyUp = (e) =>{
         clearInterval(intervalId);
+        if (e.target.value === '') return;
 
         if (e.code === 'Enter'){
             setSearchValue(e.target.value);
@@ -69,7 +72,8 @@ const mapStateToProps = () =>({});
 const mapDispatchToProps = (dispatch) => {
     const f = fetchBooks(dispatch);
     return {
-        fetchBooks: withDebounce(f, 2000),
+        //fetchBooks: withDebounce(f, 2000),
+        fetchBooks: f,
 
         booksLoaded: (newBooks) => dispatch(booksLoaded(newBooks)),
         booksError: (err) => dispatch(booksError(err))

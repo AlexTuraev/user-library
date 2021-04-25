@@ -13,12 +13,14 @@
 }*/
 
 export default class BookService{
-    /*constructor(){
+    constructor(url){
         this.url = url;
-    }*/
+        this.getBooks = this.getBooks.bind(this);
+    }
 
     getBooks (q, page='1') {
-        const url = `https://openlibrary.org/search.json?q=${q}&page=${page}`;
+        //const url = `https://openlibrary.org/search.json?q=${q}&page=${page}`;
+        const url =  `${this.url}?q=${q}&page=${page}`;
 
         return fetch(url)
             .then((res)=>{
