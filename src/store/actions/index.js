@@ -1,4 +1,5 @@
 import * as names from './name-actions';
+//import {withDebounce} from '../../components/hoc-hfunc';
 
 const booksRequested = () =>{
     return{
@@ -20,18 +21,21 @@ const booksLoaded = (newBooks) => {
     }
 }
 
-const fetchBooks = (dispatch) =>(getBooks, search, page=1)=>{
+const fetchBooks = (dispatch) => (getBooks, search, page=1) =>{
     console.log(`search = ${search}, page = ${page}`);
 
-    const searchKey = Symbol.for('symbolSearchInfo'); /* если сервер вдруг вернет данные с полем search, во избежание затирания поля */
+    //const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
 
-    dispatch(booksRequested());
-    getBooks(search.toUpperCase(), page)
+    dispatch(booksRequested()); /* "обнуление" данных загруженных книг */
+
+    return getBooks(search.toUpperCase(), page);
+
+    /*getBooks(search.toUpperCase(), page)
         .then(data => {
             dispatch(booksLoaded({...data, 
-                [searchKey]: search})); //!!!
+                [searchKey]: search}));
         })
-        .catch(err => dispatch(booksError(err)));
+        .catch(err => dispatch(booksError(err)));*/
 
 }
 
@@ -140,7 +144,11 @@ const markReadBook = (key, books=[], isRead) =>{
     }
 }
 
+//const fetchBooksDebounce = withDebounce(fetchBooks, 2000);
+
 export {
+    booksLoaded,
+    booksError,
     fetchBooks,
     bookSelected,
     addToReadBook,

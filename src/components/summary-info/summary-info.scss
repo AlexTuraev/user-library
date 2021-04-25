@@ -2,14 +2,22 @@
 
 .summary{
     background-color: $backgr-color-info;
-    height: 8vh;
+    height: 10vh;
     min-height: 60px;
     padding: 10px $padding-indent 10px $padding-indent;
+
 
     &__info{
         font-size: 18px;
     }
     
+    &__query_search{
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     &__group-link{
         display: flex;
     }

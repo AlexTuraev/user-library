@@ -1,40 +1,63 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {connect} from 'react-redux';
-import {fetchBooks} from '../../store/actions';
 
+import {fetchBooks, booksLoaded, booksError} from '../../store/actions';
+import {withDebounce} from '../hoc-hfunc';
 import {BookServiceContext} from '../book-service-context/book-service-context';
 
 import './search-panel.scss';
 
-const SearchPanel = ({fetchBooks}) => {
+const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
     const [searchValue, setSearchValue] = useState('');
+    const [isHotReload, setIsHotReload] = useState(null); /* принудительная загрузка по Enter и кнопке Go */
     const bookService = useContext(BookServiceContext);
     
-    const handlerOnChange = (e) =>{
-        setSearchValue(e.target.value);
-    }
+    useEffect(()=>{
+        if(searchValue === '') return;
+        let isStopLoading = false;
 
-    function onSearchSetValue(value){
-        if (value==='') return;
+        const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
+        const searchString = searchValue;
+
+        const promise1 = fetchBooks(bookService.getBooks, searchString);
+
+            /* withDebounce мог выдаст null при неотправленном запросе */
+        if(promise1 !== null){
+            promise1.then(data => {
+                if(!isStopLoading) {
+                    booksLoaded({...data, [searchKey]: searchString});
+                } 
+            })
+            .catch(err => booksError(err));
+        }
         
-        fetchBooks( bookService.getBooks, value);
-    }
+        return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
+    }, [searchValue, isHotReload]);
     
+    let intervalId; /* идентификатор старта onSearchSetValue с последнего нажатия клавиши */
+
     const handlerOnKeyUp = (e) =>{
-        if (e.code === 'Enter') {
-            onSearchSetValue(searchValue);
+        clearInterval(intervalId);
+
+        if (e.code === 'Enter'){
+            setSearchValue(e.target.value);
+            setIsHotReload((new Date()).getTime());
+        }else{
+            intervalId = setTimeout(() => {
+                setSearchValue(e.target.value);
+            }, 1000);
         }
     }
 
     const handlerOnBtnClick = () =>{
-        onSearchSetValue(searchValue);
+        setIsHotReload((new Date()).getTime());
     }
 
     return(
         <section className='search-panel'>
             <div className='search-panel__block'>
-                <input className='search-panel__input-search' onChange={handlerOnChange} onKeyUp={handlerOnKeyUp}
-                    placeholder='Type search...'/>
+                <input className='search-panel__input-search' onKeyUp={handlerOnKeyUp}
+                    placeholder='Type search...' title='Type search... Press Enter or push Button Go to forced loading'/>
                 <button className='search-panel__go-btn' onClick={handlerOnBtnClick}>Go</button>
             </div>
         </section>
@@ -44,8 +67,12 @@ const SearchPanel = ({fetchBooks}) => {
 const mapStateToProps = () =>({});
 
 const mapDispatchToProps = (dispatch) => {
+    const f = fetchBooks(dispatch);
     return {
-        fetchBooks: fetchBooks(dispatch)
+        fetchBooks: withDebounce(f, 2000),
+
+        booksLoaded: (newBooks) => dispatch(booksLoaded(newBooks)),
+        booksError: (err) => dispatch(booksError(err))
     }
 }
 
