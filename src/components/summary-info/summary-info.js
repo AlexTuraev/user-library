@@ -71,8 +71,8 @@ const mapDispatchToProps = (dispatch) => {
     const f = fetchBooks(dispatch);
     const g = debounce(f, 1000);
     return {
-        //fetchBooks: fetchBooks(dispatch)
-        fetchBooks: g,
+        fetchBooks: fetchBooks(dispatch),
+        //fetchBooks: g,
         booksLoaded: (newBooks) => dispatch(booksLoaded(newBooks)),
         booksError: (err) => dispatch(booksError(err))
     }
