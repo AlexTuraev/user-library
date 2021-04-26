@@ -54,12 +54,15 @@ const mapStateToProps = ({bookList}) =>{
     const symbolSearch = Symbol.for('symbolSearchInfo');
 
     const {numFound : found, start, docs, [symbolSearch]: search} = books;
-
     if( docs === undefined ) return {};
+    // ------------------------------------
+    const remainder = docs.length%100;
+    const newStart = (remainder === 0) ? start - docs.length + 100 : start - (docs.length - remainder);
+    // ------------------------------------
     
     return{
         found,
-        start,
+        start: newStart,
         pageSize: docs.length,
         search
     }

@@ -21,7 +21,7 @@ const booksLoaded = (newBooks) => {
     }
 }
 
-const fetchBooks = (dispatch) => (getBooks, search, page=1) =>{
+const fetchBooks = (dispatch) => (getBooks, search='', page=1) =>{
     console.log(`search = ${search}, page = ${page}`);
 
     //const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
