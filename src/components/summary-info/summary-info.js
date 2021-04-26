@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {connect} from 'react-redux';
+import {debounce} from 'lodash';
 
 import {fetchBooks, booksLoaded, booksError} from '../../store/actions';
 import {withDebounce} from '../hoc-hfunc';
@@ -14,13 +15,11 @@ const SummaryInfo = ({found, start, pageSize, search, fetchBooks, booksLoaded, b
         const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
         const promise1 = fetchBooks(bookService.getBooks, search, page);
 
-            /* withDebounce мог выдаст null при неотправленном запросе */
-        if(promise1 !== null){
-            promise1.then(data => {
+            promise1 && promise1.then(data => {
                     booksLoaded({...data, [searchKey]: search});
             })
             .catch(err => booksError(err));
-        }
+        
     }
 
     const contentElement = (found===undefined) ? null :
@@ -70,9 +69,10 @@ const mapStateToProps = ({bookList}) =>{
 
 const mapDispatchToProps = (dispatch) => {
     const f = fetchBooks(dispatch);
+    const g = debounce(f, 1000);
     return {
         //fetchBooks: fetchBooks(dispatch)
-        fetchBooks: withDebounce(f, 2000),
+        fetchBooks: g,
         booksLoaded: (newBooks) => dispatch(booksLoaded(newBooks)),
         booksError: (err) => dispatch(booksError(err))
     }
