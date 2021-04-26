@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {debounce} from 'lodash';
 
 import {fetchBooks, booksLoaded, booksError} from '../../store/actions';
-import {withDebounce} from '../hoc-hfunc';
+//import {withDebounce} from '../hoc-hfunc';
 import {BookServiceContext} from '../book-service-context/book-service-context';
 
 import './search-panel.scss';
@@ -19,10 +19,10 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
 
         const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
         const searchString = searchValue;
-
+        let promise1;
         if(searchString !== ''){
-            const promise1 = fetchBooks(bookService.getBooks, searchString);
-
+            promise1 = fetchBooks(bookService.getBooks, searchString);
+            
             promise1 && promise1.then(data => {
                 if(!isStopLoading) {
                     booksLoaded({...data, [searchKey]: searchString});
@@ -31,7 +31,7 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
             .catch(err => booksError(err));
         }
 
-        return () => isStopLoading = true; /* отменяет загрузку данных, для старого активного запроса */
+        return () => isStopLoading = true; /* отменяет загрузку данных предыдущим UseEffect, для старого активного запроса */
     }, [searchValue, isHotReload]);
 
     const handlerOnChange =(e) =>{
@@ -78,6 +78,10 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
 
 const mapStateToProps = () =>({});
 
+/*
+    ВМЕСТО ОБЕРТКИ debounce, применяется (см. выше) задержка по последнему keyUp.
+    Каждый следующий keyUp отменяет предыжущий ( в пределах заданного периода ).
+*/
 const mapDispatchToProps = (dispatch) => {
     const f = fetchBooks(dispatch);
     
@@ -85,8 +89,8 @@ const mapDispatchToProps = (dispatch) => {
 
     return {
         //fetchBooks: withDebounce(f, 2000),
-        //!!!fetchBooks: f,
-        fetchBooks: g,
+        //fetchBooks: g,
+        fetchBooks: f,
 
         booksLoaded: (newBooks) => dispatch(booksLoaded(newBooks)),
         booksError: (err) => dispatch(booksError(err))
