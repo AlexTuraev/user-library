@@ -56,7 +56,13 @@ const mapStateToProps = ({bookList}) =>{
     if( docs === undefined ) return {};
     // ------------------------------------
     const remainder = docs.length%100;
-    const newStart = (remainder === 0) ? start - docs.length + 100 : start - (docs.length - remainder);
+    
+    let newStart;
+    if(docs.length !== 0){
+        newStart = (remainder === 0) ? start - docs.length + 100 : start - (docs.length - remainder);
+    }else{
+        newStart = start;
+    }
     // ------------------------------------
     
     return{
