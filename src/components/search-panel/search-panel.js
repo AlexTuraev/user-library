@@ -18,10 +18,10 @@ const SearchPanel = ({fetchBooks, booksLoaded, booksError}) => {
 
         const searchKey = Symbol.for('symbolSearchInfo'); /* во избежание затирания поля */
         const searchString = searchValue;
-        const promise1 = fetchBooks(bookService.getBooks, searchString);
 
-            /* ЭТО ОТ СТАРОГО КОДА withDebounce выдаст null при неотправленном запросе */
-        if(promise1 !== null){
+        if(searchString !== ''){
+            const promise1 = fetchBooks(bookService.getBooks, searchString);
+
             promise1.then(data => {
                 if(!isStopLoading) {
                     booksLoaded({...data, [searchKey]: searchString});
